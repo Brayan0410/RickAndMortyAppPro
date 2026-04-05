@@ -1,7 +1,7 @@
 //
 //  SplashView.swift
-//  RickAndMortyAppPro
 //
+//RickAndMortyAppPro
 //  Created by Brayan Gutierrez Juarez on 04/04/26.
 //
 
