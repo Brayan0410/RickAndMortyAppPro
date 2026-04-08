@@ -5,12 +5,20 @@
 //  Created by Brayan Gutierrez Juarez on03/04/26.
 //
 
+//
+//  SceneDelegate.swift
+//  RickAndMortyAppPro
+//
+//  Created by Brayan Gutierrez Juarez on03/04/26.
+//
+
 import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let networkMonitor = NetworkMonitor()
+    let authManager = SimpleAuthManager()
     var window: UIWindow?
 
     func scene(
@@ -23,9 +31,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let container = AppContainer()
 
-        let rootView = SplashView() 
-            .environmentObject(container.favoritesManager)
-            .environmentObject(networkMonitor)
+        let rootView = Group {
+            if authManager.isAuthenticated {
+                ContentView()
+            } else {
+                SimpleLoginView()
+            }
+        }
+        .environmentObject(authManager)
+        .environmentObject(container.favoritesManager)
+        .environmentObject(networkMonitor)
 
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = UIHostingController(rootView: rootView)
